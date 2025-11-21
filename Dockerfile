@@ -19,7 +19,7 @@ COPY requirements.txt .
 
 # Install Python packages into /usr/local (system location) to copy into final image
 # Using --no-cache-dir to reduce image size
-RUN pip install --no-cache-dir -r requirements.txt -t /usr/local
+RUN pip install --no-cache-dir -r requirements.txt
 
 # ------------------------------
 # Stage 2 — Runtime

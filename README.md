@@ -169,3 +169,11 @@ Tools & fallback handling
 Observability/logging
 
 UI for combined functionality
+
+Bonus – Optional (20 points)
+
+Effective Gemini usage
+
+Agent Deployment (Streamlit UI or Cloud)
+
+Demo Video < 3 min

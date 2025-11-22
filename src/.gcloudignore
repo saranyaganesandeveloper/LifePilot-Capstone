@@ -1,0 +1,36 @@
+# Ignore Python virtual environment
+venv/
+
+# Git metadata
+.git/
+.gitignore
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# OS / IDE files
+.DS_Store
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# Environment variables
+.env
+.env.*
+
+# Node.js caches
+**/node_modules/
+.cache/
+
+# Build artifacts (if any)
+build/
+dist/
+
+# Ignore Docker-related files (optional, Cloud Build can build without these)
+.dockerignore
+Dockerfile

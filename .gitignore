@@ -1,0 +1,81 @@
+# ===== LifePilot Capstone - Production-ready .gitignore =====
+
+# Environment variables / secrets
+.env
+.env.*
+!env.example   # keep example env file
+
+# Virtual environments
+venv/
+.venv/
+
+# Python caches and bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Build / distribution
+build/
+dist/
+*.egg-info/
+*.egg
+*.whl
+
+# Logs
+*.log
+*.out
+*.err
+
+# Test / coverage artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+nosetests.xml
+coverage.xml
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Streamlit local configuration
+.streamlit/
+
+# Docker / local overrides
+docker-compose.override.yml
+docker-data/
+
+# ML / AI / Vector storage / embeddings
+*.db
+*.sqlite3
+*.pkl
+*.npz
+*.npy
+*.faiss
+*.pt
+*.bin
+models/
+checkpoints/
+
+# Temporary / cache files
+.cache/
+.tmp/
+__temp__/
+*.tmp
+
+# Ignore sensitive YAMLs / config files if needed
+*.secret.yaml
+*.local.yaml
+
+# Optional: ignore large media or output folders
+output/
+data/raw/
+data/interim/
+data/processed/
+
+# ----- End of production-ready ignores -----

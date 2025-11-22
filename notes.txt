@@ -1,0 +1,29 @@
+api key - AIzaSyBIMvxpJGFjty6CJ2hISHzzht2hn2pWVig
+
+Project: lifepilot-478904
+Raw serviceAccountName: 1050152689634-compute@developer.gserviceaccount.com
+
+gcloud run deploy lifepilot-service --image gcr.io/lifepilot-478904/lifepilot:latest --region us-central1 --platform managed --update-secrets GOOGLE_API_KEY=google-api-key:latest --allow-unauthenticated
+
+gcloud run deploy lifepilot-service --image gcr.io/lifepilot-478904/lifepilot:latest --region us-central1 --platform managed --remove-env-vars GOOGLE_API_KEY --update-secrets GOOGLE_API_KEY=google-api-key:latest --allow-unauthenticated
+
+To update local changes
+python -m streamlit run src/ui/app.py
+
+python -m venv venv
+.\venv\Scripts\activate
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+$env:GOOGLE_API_KEY="AIzaSyCFTz3nDdMjMfAAkU2FIlq1IRuu4ds4ayg"
+python -m streamlit run src/ui/app.py
+
+
+
+To update changes to Docker
+docker rm -f lifepilot-container
+docker build -t lifepilot:latest .
+docker run -d -p 8080:8080 --env-file .env --name lifepilot-container lifepilot:latest
+
+
+docker logs -f lifepilot-container
+

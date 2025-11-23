@@ -1,179 +1,258 @@
-LifePilot – Personal AI Multi-Agent Assistant
+# **LifePilot – Personal AI Multi-Agent Assistant**
 
-Category: 5-Day AI Agents Intensive Capstone Project
-Author: Saranya Ganesan
-Technologies: Python, Streamlit, Google Gemini (LLM), AsyncIO, Vector Memory, Multi-Agent System
+- **Category:** 5-Day AI Agents Intensive – Capstone Project
+- **Author:** Saranya Ganesan
+- **Technologies:** Python, Streamlit, Google Gemini (LLM), AsyncIO, Vector Memory, Multi-Agent System
 
-1️⃣ Project Overview
+---
 
-LifePilot is a personal AI assistant that automates meal planning, grocery shopping, and travel itinerary generation. Using a multi-agent system, it integrates:
+## **📌 1. Project Overview**
 
-MealPlannerAgent – Generates personalized weekly meal plans with dietary and protein preferences, with fallback menus.
+**LifePilot** is a personal multi-agent AI assistant that automates:
 
-ShoppingAgent – Extracts ingredients, finds nearby stores, and compares prices.
+* Weekly meal planning
+* Smart grocery shopping
+* Detailed travel itinerary generation
 
-TravelAgent – Builds detailed travel itineraries with activities, meals, timings, and costs.
+The system uses **multi-agent orchestration**, **vector memory**, and a **Streamlit-based UI** to deliver a unified intelligent assistant.
 
-VectorMemory – Cross-agent memory for context sharing across sessions.
+### **Agents Included**
 
-Streamlit UI – Single input box for all requests with logs and structured output.
+* **🍽️ MealPlannerAgent** – Personalized weekly meal plans, protein/diet preferences, fallbacks
+* **🛒 ShoppingAgent** – Extracts ingredients, finds local stores, price comparison
+* **✈️ TravelAgent** – Multi-day itineraries (activities, meals, timings, cost)
+* **🧠 VectorMemory** – Cross-agent context sharing across sessions
+* **🖥️ Streamlit UI** – Query input, structured tabs, logs, new UI polish
 
-2️⃣ Problem Statement
+---
 
-Planning meals, shopping efficiently, and organizing trips is time-consuming. Individuals often lack tools to:
+## **🎯 2. Problem Statement**
 
-Align dietary needs with grocery shopping
+Planning meals, shopping efficiently, and organizing trips usually requires switching between multiple tools. Users lack a unified system that:
 
-Get price comparisons from nearby stores
+* Connects dietary needs to grocery shopping
+* Finds best-priced ingredients nearby
+* Generates multi-day travel plans with cost & activity balance
 
-Build coherent multi-day itineraries for travel
+**LifePilot solves this with a single intelligent entry point** that handles all three tasks **sequentially or in parallel**, shares memory across agents, and gracefully handles missing information with fallbacks.
 
-LifePilot solves this by combining multiple agents into a unified assistant that handles all tasks in one query, remembers context, and gracefully handles incomplete or fallback scenarios.
+---
 
-3️⃣ Features
-Multi-Agent System
+## **✨ 3. Features**
 
-Sequential + Parallel execution: Meal planning → Shopping → Travel
+### **🔹 Multi-Agent System**
 
-Loop agents: TravelAgent iterates to refine itineraries
+* Sequential + parallel execution
+* TravelAgent uses refinement loops
+* Granular logs for every agent step
 
-Tools
+### **🔹 Tools**
 
-MCP + custom tools for price comparison, store detection
+* MCP + custom scraping tools
+* Local store detection
+* Fallback meal menus
 
-Fallback menus for meal planning
+### **🔹 Sessions & Memory**
 
-Sessions & Memory
+* VectorMemory tracks long-term dietary, shopping, and travel context
+* Improves results over repeated queries
 
-VectorMemory enables cross-agent context sharing
+### **🔹 Updated User Interface (NEW)**
 
-Persistent session for repeat queries
+The latest UI includes:
 
-Observability
+* **Global Input Bar** – One entry point for all requests
+* **Modern card-style layout**
+* **Dedicated Tabs**:
 
-Logs every agent step
+  * **Meal Plan** – Styled meal cards with icons
+  * **Shopping List** – Price comparison table + store list
+  * **Travel Itinerary** – Timeline-style display
+  * **Logs** – Live agent-by-agent log stream
+* **Visual separators & emoji-based headings**
+* **Improved color theme and spacing**
+* **Loading animations for agent execution**
 
-Fallback handling and error messages
+---
 
-User Interface
+## **🏗️ 4. Architecture**
 
-Streamlit-based UI
-
-Tabs for Meal Plan, Shopping List, Travel Itinerary, Logs
-
-4️⃣ Architecture
+```
                 +-------------------+
-User Query ---> |  Orchestrator     | 
+User Query ---> |   Orchestrator    | 
                 +-------------------+
-                   |     |     |
-        +----------+     |     +----------+
-        |                |                |
+                   |       |       |
+        +----------+       |       +----------+
+        |                  |                  |
 +---------------+  +---------------+  +---------------+
-| MealPlanner    |  | ShoppingAgent |  | TravelAgent   |
+| MealPlanner   |  | ShoppingAgent |  | TravelAgent   |
 | Agent         |  |               |  |               |
 +---------------+  +---------------+  +---------------+
-        |                |                |
-        +-------Vector Memory------------+
-                   |
-                   v
-            Streamlit UI
-       (Meal / Shopping / Travel / Logs)
+        |                  |                  |
+        +------------ Vector Memory ----------+
+                       |
+                       v
+                Streamlit Frontend
+           (Meal | Shopping | Travel | Logs)
+```
 
-5️⃣ Setup Instructions
-# 1. Clone repository
+---
+
+## **⚙️ 5. Setup Instructions**
+
+### **1. Clone the Repository**
+
+```bash
 git clone https://github.com/<your-username>/LifePilot-Capstone.git
 cd LifePilot-Capstone
+```
 
-# 2. Create virtual environment
+### **2. Create Virtual Environment**
+
+```bash
 python -m venv venv
-# Activate
-# Windows
+```
+
+Activate:
+
+**Windows**
+
+```bash
 venv\Scripts\activate
-# Mac/Linux
+```
+
+**Mac/Linux**
+
+```bash
 source venv/bin/activate
+```
 
-# 3. Install dependencies
+### **3. Install Dependencies**
+
+```bash
 pip install -r requirements.txt
+```
 
-# 4. Set environment variable
-# Windows PowerShell
+### **4. Set Environment Variables**
+
+**Windows (PowerShell)**
+
+```bash
 setx GOOGLE_API_KEY "YOUR_GOOGLE_API_KEY"
-# Linux/macOS
+```
+
+**Mac/Linux**
+
+```bash
 export GOOGLE_API_KEY="YOUR_GOOGLE_API_KEY"
+```
 
-# 5. Run Streamlit UI
+### **5. Run the Streamlit UI**
+
+```bash
 streamlit run src/ui/app.py
+```
 
-6️⃣ Sample Queries & Expected Output
-Query 1 – Meal + Shopping + Travel
-Plan a 2-day Austin trip for July 15-16 for 2 people. Vegetarian high-protein meals, budget $100/day, moderate fitness, hiking/swimming/outdoor activities, downtown Airbnb, rideshares + walking, mix of touristy/local experiences.
+## **b) Running with Docker**
+
+**Build**
+
+```bash
+docker build -t lifepilot-app .
+```
+
+**Run**
+
+```bash
+docker run -p 8501:8501 \
+  -e GOOGLE_API_KEY=YOUR_API_KEY \
+  -e GCP_SERVICE_URL=https://<your-cloud-run-url>.run.app \
+  lifepilot-app
+```
+
+---
+
+## **🧪 6. Sample Queries & Expected Output**
+
+### **Query Example 1 – Combined Meal + Shopping + Travel**
+
+**User Query:**
+*“Plan a 2-day Austin trip for July 15–16 for 2 people. Vegetarian high-protein meals, budget $100/day, moderate fitness, hiking/swimming/outdoor activities, downtown Airbnb, rideshares + walking, mix of touristy/local experiences.”*
+
+### **Meal Plan Tab (Updated UI)**
+
+* Card-based day-wise meal layout
+* Icons for Meal / Protein / Calories
+
+**Example:**
+
+* **Day 1:** Paneer Stir Fry + Quinoa
+* **Day 2:** Lentil Curry + Brown Rice
+
+### **Shopping List Tab**
+
+* Ingredients auto-extracted
+* Store list with distance
+* Price comparison table
+
+### **Travel Itinerary Tab**
+
+* Timeline UI
+* Time blocks for each activity
+* Cost breakdown
+
+### **Logs Tab**
+
+Shows real-time steps such as:
+
+```
+[LifePilot] MealAgent → generating meal plan
+[LifePilot] MealAgent → stored in VectorMemory
+[LifePilot] ShoppingAgent → extracting ingredients
+[LifePilot] TravelAgent → planning itinerary loop (iteration 1)
+...
+```
+
+---
+
+### **Query Example 2 – Fallback Handling**
+
+**User Query:**
+“Generate a vegetarian meal plan but do not provide any ingredients.”
+
+**Result:**
+
+* MealAgent produces **fallback vegetarian menu**
+* ShoppingAgent shows:
+
+  * “No ingredients provided”
+  * Still detects nearest stores
+* TravelAgent prompts user for missing trip info
+
+---
+
+## **📝 7. Evaluation Checklist**
+
+### **Category 1 – Pitch (30 pts)**
+
+* Clear problem & solution
+* Concept well-structured
+* Demonstrated user value
+
+### **Category 2 – Implementation (70 pts)**
+
+* Fully functional multi-agent flow
+* VectorMemory integration
+* Streamlit UI + logs
+* Fallback logic
+* MCP-based tools
+
+### **Bonus – Optional (20 pts)**
+
+* Effective Gemini usage
+* Deployment on Streamlit / Cloud
+* Demo video < 3 minutes
+
+---
 
 
-Expected Streamlit Output:
-
-Meal Plan Tab
-
-Day 1: Paneer stir fry + quinoa + salad
-
-Day 2: Lentil curry + brown rice + steamed vegetables
-
-Shopping List Tab
-
-Ingredients: Paneer, Quinoa, Salad, Lentils, Brown rice, Steamed vegetables
-
-Stores: Walmart (1.2 mi), Kroger (0.8 mi), Target (2.0 mi)
-
-Price Comparison per store
-
-Travel Itinerary Tab
-
-Day 1: Hiking Barton Creek Greenbelt → Lunch at Bouldin Creek Cafe → Barton Springs → Dinner Casa de Luz → Live music
-
-Day 2: Breakfast & Farmers Market → Graffiti Park → Kayaking Lady Bird Lake → Zilker Park → Dinner Gourdough’s → Relax at Airbnb
-
-Logs Tab
-[LifePilot Log] START orchestrating user request...
-[LifePilot Log] MealAgent: Generating weekly meal plan...
-[LifePilot Log] MealAgent: Meal plan stored in memory.
-[LifePilot Log] ShoppingAgent: Extracting ingredients...
-[LifePilot Log] ShoppingAgent: Detected nearby stores.
-[LifePilot Log] TravelAgent: Starting itinerary planning loop...
-[LifePilot Log] TravelAgent: Itinerary generated successfully.
-
-Query 2 – Fallback Example
-Generate a vegetarian meal plan but do not provide any ingredients.
-
-
-MealAgent returns fallback menu
-
-ShoppingAgent shows empty ingredients but still detects nearby stores
-
-TravelAgent prompts for missing trip info
-
-7️⃣ Evaluation Checklist
-
-Category 1 – Pitch (30 points)
-
-Clear problem & solution
-
-Core concept explained
-
-Value demonstrated
-
-Category 2 – Implementation (70 points)
-
-Multi-agent system + memory
-
-Tools & fallback handling
-
-Observability/logging
-
-UI for combined functionality
-
-Bonus – Optional (20 points)
-
-Effective Gemini usage
-
-Agent Deployment (Streamlit UI or Cloud)
-
-Demo Video < 3 min

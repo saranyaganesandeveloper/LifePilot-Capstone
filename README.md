@@ -3,6 +3,7 @@
 - **Category:** 5-Day AI Agents Intensive – Capstone Project
 - **Author:** Saranya Ganesan
 - **Technologies:** Python, Streamlit, Google Gemini (LLM), AsyncIO, Vector Memory, Multi-Agent System
+- **Service-URL** https://lifepilot-service-1050152689634.us-central1.run.app/
 
 ---
 
@@ -100,6 +101,28 @@ User Query ---> |   Orchestrator    |
 
 ## **⚙️ 5. Setup Instructions**
 
+**Prerequisites**
+
+Make sure your system has:
+
+* Python **3.10+**
+* pip
+* git
+* (Optional) Docker
+* Google API Key
+* Google Project Id
+* gcloud services with google api, artifact registry, cloud run billing
+* add GOOGLE_API_KEY to secrets manager
+
+Check:
+
+```bash
+python --version
+pip --version
+```
+
+---
+
 ### **1. Clone the Repository**
 
 ```bash
@@ -151,6 +174,7 @@ export GOOGLE_API_KEY="YOUR_GOOGLE_API_KEY"
 
 ```bash
 streamlit run src/ui/app.py
+check Local URL: http://localhost:8501
 ```
 
 ## **b) Running with Docker**
@@ -158,18 +182,35 @@ streamlit run src/ui/app.py
 **Build**
 
 ```bash
-docker build -t lifepilot-app .
+docker rm -f lifepilot-container
+docker build -t lifepilot:latest .
 ```
 
 **Run**
 
 ```bash
-docker run -p 8501:8501 \
-  -e GOOGLE_API_KEY=YOUR_API_KEY \
-  -e GCP_SERVICE_URL=https://<your-cloud-run-url>.run.app \
-  lifepilot-app
+docker run -d --name lifepilot-container -p 8080:8080 -e GOOGLE_API_KEY="YOUR_GOOGLE_API_KEY" lifepilot:latest
+docker logs -f lifepilot-container
+check http://localhost:8080/
+```
+## **c) Running with GCP**
+
+**Build**
+
+```bash
+gcloud auth login
+gcloud config set project <YOUR_PROJECT_ID>
+gcloud services enable run.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com
+gcloud builds submit --tag gcr.io/<YOUR_PROJECT_ID>/lifepilot:latest .
 ```
 
+**Run**
+
+```bash
+gcloud run deploy lifepilot-service --image gcr.io/<YOUR_PROJECT_ID>/lifepilot:latest --region us-central1 --platform managed --remove-env-vars GOOGLE_API_KEY --update-secrets GOOGLE_API_KEY=google-api-key:latest --allow-unauthenticated
+
+check https://lifepilot-service-1050152689634.us-central1.run.app/
+```
 ---
 
 ## **🧪 6. Sample Queries & Expected Output**
